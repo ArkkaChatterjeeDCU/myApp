@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Submit Weather Data</h2>
+  <form method="POST" action="{% url 'submit_weather' %}">
+    {% csrf_token %}
+    <div>
+      <label for="user_id">User:</label>
+      <input type="text" name="user_id" id="user_id" required>
+    </div>
+    <div>
+      <label for="heat_index">Heat Index:</label>
+      <select name="heat_index" id="heat_index">
+        <option value="moderate">Moderate</option>
+        <option value="caution">Caution</option>
+        <option value="danger">Danger</option>
+      </select>
+    </div>
+    <div>
+      <label for="wind_index">Wind Index:</label>
+      <select name="wind_index" id="wind_index">
+        <option value="light_breeze">Light Breeze</option>
+        <option value="moderate_breeze">Moderate Breeze</option>
+        <option value="strong_winds">Strong Winds</option>
+        <option value="storm_force_winds">Storm Force Winds</option>
+      </select>
+    </div>
+    <div>
+      <label for="rainfall_index">Rainfall Index:</label>
+      <select name="rainfall_index" id="rainfall_index">
+        <option value="light_occasional_rain">Light &amp; Occasional Rain</option>
+        <option value="moderate_rain">Moderate Rain</option>
+        <option value="heavy_rain">Heavy Rain</option>
+        <option value="torrential_rain">Torrential Rain</option>
+      </select>
+    </div>
+    <div>
+      <label for="Visibility_index">Visibility Index:</label>
+      <select name="visibility_index" id="visibility_index">
+        <option value="excellent">Excellent</option>
+        <option value="good">Good</option>
+        <option value="moderate">Moderate</option>
+        <option value="poor">Poor</option>
+        <option value="very poor">Very Poor</option>
+      </select>
+    </div>
+    <div>
+      <label for="location">Location:</label>
+      <input type="text" name="location" id="location" required>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}
+
+

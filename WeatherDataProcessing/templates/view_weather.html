@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Weather Data</h2>
+  <table>
+    <thead>
+      <tr>
+
+        <th>Heat Index</th>
+        <th>Wind Index</th>
+        <th>Rainfall Index</th>
+        <th>Visibility Index</th>
+        <th>Location</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in weather_data %}
+        <tr>
+
+          <td>{{ data.heat_index }}</td>
+          <td>{{ data.wind_index }}</td>
+          <td>{{ data.rainfall_index }}</td>
+          <td>{{ data.visibility_index }}</td>
+          <td>{{ data.location }}</td>
+          <td>{{ data.created_at }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
