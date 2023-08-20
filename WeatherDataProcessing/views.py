@@ -4,42 +4,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import WeatherData
 from .forms import WeatherDataForm
-from .utils import get_graph
-
-
-# @login_required
-# def submit_weather(request):
-#     if request.method == 'POST':
-#         heat_index = request.POST['heat_index']
-#         wind_index = request.POST['wind_index']
-#         rainfall_index = request.POST['rainfall_index']
-#         visibility_index= request.POST['visibility_index']
-#         location = request.POST['location']
-#         WeatherData.objects.create(
-#             user=request.user,
-#             heat_index=heat_index,
-#             wind_index=wind_index,
-#             rainfall_index=rainfall_index,
-#             visibility_index=visibility_index,
-#             location=location
-#         )
-#
-#         return redirect('view_weather')
-#     return render(request, 'WeatherDataProcessing/submit_weather.html')
-
+from .utils import get_graph, get_gp2
 
 def submit_weather(request):
-    # if request.method == 'POST':
-    #     form = WeatherDataForm(request.POST)
-    #     if form.is_valid():
-    #         print(form)
-    # # Process the form data
-    # # For example: Save the data to the database
-    # # ...
-    # else:
-    #     form = WeatherDataForm()
-    #
-    # return render(request, 'submit_weather.html', {'form': form})
 
     if request.method == "POST":
         usr =request.POST['user_id']
@@ -53,12 +20,6 @@ def submit_weather(request):
         wd.save()
         return redirect('view_weather')
 
-        #form = WeatherDataForm(request.POST)
-    #     if form.is_valid():
-    #         wdata = form.save(commit=False)
-    #
-    #         #wdata.save()
-    # form = WeatherDataForm()
     return render(request, 'submit_weather.html')
 
 
@@ -70,27 +31,31 @@ def view_weather(request):
     return render(request, 'view_weather.html', {'weather_data': weather_data})
 
 def view_projection(request):
-    # weather_queryset = WeatherData.objects.all()
-    # data = list(weather_queryset.values())
-    # projection_json = get_location_json(data)
+
+    pi_results = None
+    pi_results_wind = None
+    pi_results_rainfall = None
+    pi_results_visibility = None
 
     if request.method == 'POST':
-        pi_results = None
+
         selected_location = request.POST.get('location')
         if selected_location:
             filtered_data = WeatherData.objects.filter(location=selected_location)
             print(filtered_data)
             data = list(filtered_data.values())
-            pi_results = get_graph(data)
 
-
+            pi_results , pi_results_wind = get_graph(data)
+            pi_results_rainfall, pi_results_visibility = get_gp2(data)
         else:
             filtered_data = None
     else:
         selected_location = ''
         filtered_data = None
     locations = WeatherData.objects.values_list("location",flat=True).distinct()
-    context = {'unique_location':locations, 'pi': pi_results}
+
+    context = {'unique_location':locations, 'pi': pi_results, 'pi_wind': pi_results_wind,
+               'pi_rainfall': pi_results_rainfall, 'pi_visibility': pi_results_visibility}
     return render(request, 'data_projection.html', context)
 
-    #return render(request,'data_projection.html')
+
