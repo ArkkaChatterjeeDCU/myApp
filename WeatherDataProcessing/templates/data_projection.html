@@ -20,6 +20,15 @@
     </form>
     {% if pi %}
     <img src="data:image/png;base64,{{ pi }}" alt="Heatmap">
+{% endif %}
+    {% if pi_wind %}
+    <img src="data:image/png;base64,{{ pi_wind }}" alt="windmap">
+{% endif %}
+    {% if pi_rainfall %}
+    <img src="data:image/png;base64,{{ pi_rainfall }}" alt="rainfallmap">
+{% endif %}
+    {% if pi_visibility %}
+    <img src="data:image/png;base64,{{ pi_visibility }}" alt="visibilitymap">
     {% endif %}
 </body>
 </html>
