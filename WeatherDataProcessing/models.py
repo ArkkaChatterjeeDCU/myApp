@@ -7,33 +7,7 @@ from django.db import models
 
 
 class WeatherData(models.Model):
-    # HEAT_INDEX_CHOICES = [
-    #     ('moderate', 'Moderate'),
-    #     ('caution', 'Caution'),
-    #     ('danger', 'Danger'),
-    # ]
-    #
-    # WIND_INDEX_CHOICES = [
-    #     ('light_breeze', 'Light Breeze'),
-    #     ('moderate_breeze', 'Moderate Breeze'),
-    #     ('strong_winds', 'Strong Winds'),
-    #     ('storm_force_winds', 'Storm Force Winds'),
-    # ]
-    #
-    # RAINFALL_INDEX_CHOICES = [
-    #     ('light_occasional_rain', 'Light & Occasional Rain'),
-    #     ('moderate_rain', 'Moderate Rain'),
-    #     ('heavy_rain', 'Heavy Rain'),
-    #     ('torrential_rain', 'Torrential Rain'),
-    # ]
-    #
-    # VISIBILITY_INDEX_CHOICES = [
-    #    ('excellent', 'Excellent'),
-    #    ('good', 'Good'),
-    #    ('moderate', 'Moderate'),
-    #    ('poor', 'Poor'),
-    #    ('very poor', 'Very Poor')
-    # ]
+
 
     user = models.CharField(max_length=100, default='')
     heat_index = models.CharField(max_length=100, default='')
